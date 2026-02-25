@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse
-from bot import Bot
+#from bot import Bot
 from whatsapp import WhatsAppClient
 import os
 
 router = APIRouter()
-bot = Bot()
+#bot = Bot()
 cliente = WhatsAppClient()
 
 TOKEN_CONEXION_META = os.environ.get("TOKEN_CONEXION_META", "TERESITAEDU")
@@ -25,16 +25,17 @@ async def recibir_mensaje(request: Request):
     try:
         mensaje = data["entry"][0]["changes"][0]["value"]["messages"][0]
         numero = mensaje["from"]
-        tipo = mensaje["type"]
+        #tipo = mensaje["type"]
+        cliente.enviar_mensaje(numero, "Hola, buen día. ¿En qué le puedo ayudar?") #Mensaje para responder
 
-        if tipo == "text":
-            texto = mensaje["text"]["body"]
-        elif tipo == "interactive":
-            texto = mensaje["interactive"]["list_reply"]["id"]
-        else:
-            return {"status": "ok"}
+        #if tipo == "text":
+        #   texto = mensaje["text"]["body"]
+        #elif tipo == "interactive":
+        #    texto = mensaje["interactive"]["list_reply"]["id"]
+        #else:
+        #    return {"status": "ok"}
 
-        bot.procesar(texto, numero, cliente)
+       # bot.procesar(texto, numero, cliente)
     except KeyError:
         pass
     return {"status": "ok"}
