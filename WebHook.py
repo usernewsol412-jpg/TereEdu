@@ -38,4 +38,4 @@ async def recibir_mensaje(request: Request):
        # bot.procesar(texto, numero, cliente)
     except KeyError:
         pass
-    return {"status": "ok todo bien!"}
+    return {"status": "ok, todo bien!"}
