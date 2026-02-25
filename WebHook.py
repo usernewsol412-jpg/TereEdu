@@ -1,4 +1,4 @@
-lofrom fastapi import APIRouter, Request
+from fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse
 #from bot import Bot
 from whatsapp import WhatsAppClient
