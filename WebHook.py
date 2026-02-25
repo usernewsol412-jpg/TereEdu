@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+lofrom fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse
 #from bot import Bot
 from whatsapp import WhatsAppClient
@@ -26,7 +26,7 @@ async def recibir_mensaje(request: Request):
         mensaje = data["entry"][0]["changes"][0]["value"]["messages"][0]
         numero = mensaje["from"]
         #tipo = mensaje["type"]
-        cliente.enviar_mensaje(numero, "Hola, buen día. ¿En qué le puedo ayudar?") #Mensaje para responder
+        cliente.enviar_mensaje(numero, "Hello World! jijiji") #Mensaje para responder
 
         #if tipo == "text":
         #   texto = mensaje["text"]["body"]
