@@ -22,24 +22,28 @@ async def verificar_webhook(request: Request):
 
 
 @router.post("/webhook")
-@router.get("/webhook/")
+@router.post("/webhook/")
 async def recibir_mensaje(request: Request):
     data = await request.json()
-    print("[WEBHOOK POST] body:", data, flush=True)
+
     try:
-        mensaje = data["entry"][0]["changes"][0]["value"]["messages"][0]
-        numero = mensaje["from"]
-        #tipo = mensaje["type"]
-        cliente.enviar_mensaje(numero, "Hello World! jijiji") #Mensaje para responder
+        value = data["entry"][0]["changes"][0]["value"]
 
-        #if tipo == "text":
-        #   texto = mensaje["text"]["body"]
-        #elif tipo == "interactive":
-        #    texto = mensaje["interactive"]["list_reply"]["id"]
-        #else:
-        #    return {"status": "ok"}
+        # 🔹 Solo procesar mensajes entrantes
+        if "messages" in value:
+            mensaje = value["messages"][0]
+            numero = mensaje["from"]
+            texto = mensaje.get("text", {}).get("body", "")
 
-       # bot.procesar(texto, numero, cliente)
-    except KeyError:
+            print(f"MENSAJE DE {numero}: {texto}", flush=True)
+
+            # Responder
+            cliente.enviar_mensaje(numero, "OKA")
+
+        # 🔹 Ignorar completamente statuses
+        # (no hacemos nada si solo viene 'statuses')
+
+    except Exception:
         pass
-    return {"status": "ok, todo bien!"}
+
+    return {"status": "ok"}
