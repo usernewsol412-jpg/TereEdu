@@ -8,13 +8,13 @@ router = APIRouter()
 #bot = Bot()
 cliente = WhatsAppClient()
 
-TOKEN_CONEXION_META = os.environ.get("TOKEN_CONEXION_META", "TERESITAEDU")
+VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "TERESITAEDU")
 
 
 @router.get("/webhook")
 async def verificar_webhook(request: Request):
     params = dict(request.query_params)
-    if params.get("hub.verify_token") == TOKEN_CONEXION_META:
+    if params.get("hub.verify_token") == VERIFY_TOKEN:
         return PlainTextResponse(content=params["hub.challenge"])
     return PlainTextResponse(content="token inválido", status_code=403)
 
