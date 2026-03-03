@@ -38,7 +38,7 @@ async def recibir_mensaje(request: Request):
             print(f"MENSAJE DE {numero}: {texto}", flush=True)
 
             # Responder
-            cliente.enviar_mensaje(numero, "Hello World jiji")
+            cliente.enviar_mensaje(numero, "Hello World jiji!")
 
         # 🔹 Ignorar completamente statuses
         # (no hacemos nada si solo viene 'statuses')
